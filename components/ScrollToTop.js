@@ -1,30 +1,27 @@
-"use client";
-import { useState, useEffect } from "react";
 import { FaArrowUp } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
-export default function ScrollToTop() {
+const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      setVisible(window.scrollY > 300);
+      if (window.pageYOffset > 300) setVisible(true);
+      else setVisible(false);
     };
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-  return (
-    <>
-      {visible && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110 z-50"
-        >
-          <FaArrowUp size={20} />
-        </button>
-      )}
-    </>
-  );
-}
+  return visible ? (
+    <div className="fixed bottom-5 right-5 cursor-pointer text-blue-600" onClick={scrollToTop}>
+      <FaArrowUp size={30} />
+    </div>
+  ) : null;
+};
+
+export default ScrollToTop;
