@@ -1,32 +1,29 @@
-import React from "react";
+import Typed from 'typed.js';
+import { useEffect, useRef } from 'react';
 
 const Hero = () => {
+  const typedRef = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(typedRef.current, {
+      strings: ["Full-Stack Developer", "Machine Learning Enthusiast", "Competitive Programmer"],
+      typeSpeed: 50,
+      backSpeed: 30,
+      loop: true,
+    });
+
+    return () => typed.destroy();
+  }, []);
+
   return (
-    <section
-      id="hero"
-      className="flex flex-col md:flex-row items-center justify-between py-20 px-6 max-w-6xl mx-auto"
-    >
-      <div className="text-center md:text-left md:w-1/2" data-aos="fade-right">
-        <h1 className="text-5xl font-bold mb-4 text-white">
-          Hi, I'm Swayam Gupta
-        </h1>
-        <p className="text-gray-300 mb-6">
-          B.Tech CSE Student | Machine Learning & Web Development Enthusiast
-        </p>
-        <a
-          href="#contact"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-300"
-        >
-          Contact Me
-        </a>
-      </div>
-      <div className="mt-10 md:mt-0 md:w-1/2 flex justify-center" data-aos="fade-left">
-        <img
-          src="https://i.ibb.co/ds2ZDW61/profile.jpg"
-          alt="Profile"
-          className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-blue-500 shadow-xl"
-        />
-      </div>
+    <section id="hero" className="flex flex-col items-center justify-center py-20 text-center bg-gray-900 text-white" data-aos="fade-up">
+      <img
+        src="https://i.ibb.co/ds2ZDW61/profile.jpg"
+        alt="Profile"
+        className="w-40 h-40 rounded-full border-4 border-yellow-300 mb-6"
+      />
+      <h1 className="text-4xl font-bold mb-2">Swayam Gupta</h1>
+      <p className="text-xl" ref={typedRef}></p>
     </section>
   );
 };
