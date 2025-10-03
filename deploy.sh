@@ -2,9 +2,9 @@
 set -e
 
 echo "🛠 Building Next.js static site..."
-npm run build
+npm run build   # or bun run build if using Bun
 
-echo "📂 Listing files in out/ folder:"
+echo "📂 Checking out/ folder contents:"
 ls -la out
 
 echo "🚀 Deploying to Cloudflare..."
