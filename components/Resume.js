@@ -18,7 +18,7 @@ const Resume = () => (
           <div>
             <h4 className="text-xl font-semibold mb-3">Education</h4>
             <p className="text-gray-300">B.Tech Computer Science - KIIT University</p>
-            <p className="text-gray-400 text-sm">Expected Graduation: 2026</p>
+            <p className="text-gray-400 text-sm">Expected Graduation: 2027</p>
           </div>
           <div>
             <h4 className="text-xl font-semibold mb-3">Technical Skills</h4>
