@@ -10,9 +10,16 @@ const ScrollToTop = () => {
     return () => window.removeEventListener("scroll", toggle);
   }, []);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return visible ? (
-    <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-6 cursor-pointer p-3 rounded-full bg-yellow-300 text-black">
-      <FaArrowUp />
+    <div 
+      onClick={scrollToTop} 
+      className="fixed bottom-6 right-6 cursor-pointer p-3 rounded-full bg-yellow-300 text-black hover:bg-yellow-400 transition-colors z-50 shadow-lg"
+    >
+      <FaArrowUp size={20} />
     </div>
   ) : null;
 };
