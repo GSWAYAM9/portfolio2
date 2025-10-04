@@ -26,10 +26,12 @@ const Projects = () => (
     <h2 className="text-4xl font-bold mb-6 text-center">Projects</h2>
     <div className="grid md:grid-cols-2 gap-6">
       {projects.map((project, idx) => (
-        <div key={idx} className="p-6 bg-gray-900 rounded-lg shadow-lg hover:scale-105 transition-transform">
+        <div key={idx} className="p-6 bg-gray-900 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
           <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
           <p className="text-gray-300 mb-4">{project.desc}</p>
-          <a href={project.link} target="_blank" rel="noreferrer" className="text-yellow-300 font-bold hover:underline">View Project</a>
+          <a href={project.link} target="_blank" rel="noreferrer" className="text-yellow-300 font-bold hover:underline">
+            View Project →
+          </a>
         </div>
       ))}
     </div>
