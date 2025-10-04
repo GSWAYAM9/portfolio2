@@ -4,7 +4,9 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
-  }
+  },
+  // Add this for static export compatibility
+  assetPrefix: '',
 }
 
 module.exports = nextConfig
