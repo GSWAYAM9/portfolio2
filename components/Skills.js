@@ -5,7 +5,9 @@ const Skills = () => (
     <h2 className="text-4xl font-bold mb-6 text-center">Skills</h2>
     <div className="flex flex-wrap justify-center gap-4">
       {skills.map((skill, idx) => (
-        <span key={idx} className="bg-yellow-300 text-black px-4 py-2 rounded-full shadow-md">{skill}</span>
+        <span key={idx} className="bg-yellow-300 text-black px-6 py-3 rounded-full shadow-md font-medium">
+          {skill}
+        </span>
       ))}
     </div>
   </section>
