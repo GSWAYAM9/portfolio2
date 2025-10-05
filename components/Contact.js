@@ -6,57 +6,61 @@ const Contact = () => {
   const [msg, setMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setMsg("Sending your message...");
 
-    // Get current date and time
-    const now = new Date();
-    const formData = {
-      from_name: form.current.from_name.value,
-      email: form.current.email.value,
-      message: form.current.message.value,
-      date: now.toLocaleDateString(),
-      time: now.toLocaleTimeString(),
-      to_name: "Swayam"
-    };
+    try {
+      const formData = {
+        from_name: form.current.from_name.value,
+        email: form.current.email.value,
+        message: form.current.message.value,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        to_name: "Swayam"
+      };
 
-    // Send TWO emails: 
-    // 1. Confirmation to user
-    // 2. Notification to yourself
-    
-    const userEmailPromise = emailjs.send(
-      'service_q0m5oun', 
-      'template_ar7hc5e', // User confirmation template
-      formData, 
-      'fP60skOY0tM5-GPbh'
-    );
+      console.log('Sending email with data:', formData);
 
-    const adminEmailPromise = emailjs.send(
-      'service_q0m5oun', 
-      'portfolio_notification', // Your notification template
-      formData, 
-      'fP60skOY0tM5-GPbh'
-    );
+      // Send notification to YOU using the Contact Us template
+      const yourNotification = await emailjs.send(
+        'service_q0m5oun', 
+        'template_lnfh3pv', // Contact Us template - goes to you
+        formData, 
+        'fP60skOY0tM5-GPbh'
+      );
 
-    // Execute both email sends
-    Promise.all([userEmailPromise, adminEmailPromise])
-      .then((result) => {
-        console.log('All emails sent successfully:', result);
-        setMsg("🎉 Message sent successfully! I'll get back to you within 24 hours. You'll receive a confirmation email shortly.");
-        setIsLoading(false);
-        form.current.reset();
-        
-        setTimeout(() => setMsg(""), 8000);
-      })
-      .catch((error) => {
-        console.error('Email failed to send:', error);
-        setMsg("❌ Failed to send message. Please email me directly at gswayam94@gmail.com");
-        setIsLoading(false);
-        
-        setTimeout(() => setMsg(""), 8000);
-      });
+      console.log('Notification sent to you:', yourNotification);
+
+      // Send auto-reply to USER
+      const userConfirmation = await emailjs.send(
+        'service_q0m5oun', 
+        'template_ar7hc5e', // Auto-Reply template - goes to user
+        formData, 
+        'fP60skOY0tM5-GPbh'
+      );
+
+      console.log('Confirmation sent to user:', userConfirmation);
+
+      setMsg("🎉 Message sent successfully! I'll get back to you within 24 hours.");
+      setIsLoading(false);
+      form.current.reset();
+      
+    } catch (error) {
+      console.error('Email failed to send:', error);
+      
+      let errorMessage = "Failed to send message. ";
+      
+      if (error.text) {
+        errorMessage += `Error: ${error.text}`;
+      } else {
+        errorMessage += "Please email me directly at gswayam94@gmail.com";
+      }
+      
+      setMsg(`❌ ${errorMessage}`);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -109,11 +113,6 @@ const Contact = () => {
               : 'bg-red-900/20 border-red-500 text-red-300'
           }`}>
             <p className="font-medium">{msg}</p>
-            {msg.includes('🎉') && (
-              <p className="text-sm mt-2 text-green-200">
-                Check your email for a confirmation message.
-              </p>
-            )}
           </div>
         )}
       </form>
